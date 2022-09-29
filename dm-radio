@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# Declare an array with the options.
+declare -A radio_stations
+radio_stations[80s Rewind]="https://zeno.fm/radio/80s-rewind/"
+radio_stations[90s Rock]="https://zeno.fm/radio/90s-rock/"
+radio_stations[The 2000s]="https://zeno.fm/radio/the-2000s/"
+radio_stations[Classical Radio]="https://zeno.fm/radio/classical-radio/"
+radio_stations[Classical Relaxation]="https://zeno.fm/radio/radio-christmas-non-stop-classical/"
+radio_stations[Classic Rock]="https://zeno.fm/radio/classic-rockdnb2sav8qs8uv/"
+radio_stations[PopMusic]="https://zeno.fm/radio/popmusic74vyurvmug0uv/"
+
+# dmenu prints the options in insensitive mode, 20 options and prompt it something.
+dmenu="dmenu -i -l 20 -p"
+
+menu() {
+    printf '%s\n' "Quit"
+    printf '%s\n' "${!radio_stations[@]}" | sort
+}
+
+# Functions for sending notification messages
+start_radio() {
+  notify-send "Starting dm-radio" "Playing station: $1. 🎶"
+}
+
+end_radio() {
+  notify-send "Stopping dm-radio" "You have quit dm-radio. 🎶"
+}
+
+# Keep the option and the if I chose a valid option, then execute mpv. Or just quit.
+main() {
+    choice=$(menu | ${dmenu} 'Choose radio station:' "$@") || exit 1
+
+    case $choice in
+    Quit)
+        end_radio;
+        pkill -f http
+        exit
+        ;;
+
+    *)
+        pkill -f http || echo "mpv not running."
+        start_radio "$choice" ;
+        mpv "${radio_stations["${choice}"]}"
+        return
+        ;;
+    esac
+}
+
+# Without this, it's never going to do anything.
+main
