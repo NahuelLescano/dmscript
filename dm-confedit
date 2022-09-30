@@ -1,0 +1,44 @@
+#! /usr/bin/env bash
+
+# Declaring the array with options.
+declare -A confedit
+confedit[alacritty]="$HOME/.config/alacritty/alacritty.yml"
+confedit[awesome]="$HOME/.config/awesome/rc.lua"
+confedit[awesome theme]="$HOME/.config/awesome/theme.lua"
+confedit[bash]="$HOME/.bashrc"
+confedit[fish]="$HOME/.config/fish/config.fish"
+confedit[neovim]="$HOME/.config/nvim/init.lua"
+confedit[qutebrowser bookmarks]="$HOME/.config/qutebrowser/urls"
+confedit[qutebrowser quickmarks]="$HOME/.config/qutebrowser/quickmarks"
+confedit[qutebrowser config.py]="$HOME/.config/qutebrowser/config.py"
+confedit[vifm]="$HOME/.config/vifm/vifmrc"
+
+# dmenu with insensitive mode, print 20 lines and prompt something
+dmenu="dmenu -i -l 20 -p"
+
+# The actual editor.
+editor="nvim"
+
+main() {
+    # Clean options array making sure that files exist.
+    declare -A clean_list
+
+    for i in "${!confedit[@]}"; do
+        [[ -f ${confedit["${i}"]} ]] && clean_list["${i}"]=${confedit["${i}"]}
+    done
+
+    # Piping the above (cleaned) array into dmenu.
+    # printf '%s\n' prints each option in separate lines.
+    choice=$(printf '%s\n' "${!clean_list[@]}" | sort | ${dmenu} 'Edit config:' "$@") || exit 1
+
+    # What to do when a file is selected to edit.
+    if [ "$choice" ]; then
+        cfg=$(printf '%s\n' "${clean_list["${choice}"]}")
+        $editor "$cfg"
+    # What to do if I just escape without choosing anything.
+    else
+        echo "Program terminated." && exit 0
+    fi
+}
+
+main
