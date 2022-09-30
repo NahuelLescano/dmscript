@@ -1,0 +1,56 @@
+#! /usr/bin/env bash
+
+# dmenu prints the options in insensitive mode, 20 options and prompt it something.
+dmenu="dmenu -i -l 20 -p"
+
+# Declare an array of options.
+declare -a options=(
+"Reboot"
+"Suspend"
+"Shutdown"
+"Quit"
+)
+
+main() {
+    choice=$(printf '%s\n' "${options[@]}" | ${dmenu} 'Menu:' "${@}")
+
+    case $choice in
+        'Reboot')
+            if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
+                systemctl reboot
+
+            else
+                notify_send "User chose not to reboot." && exit 0
+
+            fi
+        ;;
+
+        'Suspend')
+            if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
+                systemctl suspend
+
+            else
+                notify_send "User chose not to suspend." && exit 0
+
+            fi
+        ;;
+
+        'Shutdown')
+            if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
+                systemctl poweroff
+
+            else
+                notify_send "User chose not to shutdown." && exit 0
+
+            fi
+        ;;
+
+        # It is a common practice to use the wildcard asterisk symbol (*) as a final
+        # pattern to define the default case. This pattern will always match.
+        *)
+            exit 1
+        ;;
+    esac
+}
+
+main
