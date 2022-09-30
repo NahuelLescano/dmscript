@@ -20,9 +20,13 @@ websearch[odysee]="https://odysee.com/$/search?q="
 # Online shopping
 websearch[amazon]="https://www.amazon.com/s?k="
 # Linux
+websearch[arch pkg]="https://archlinux.org/packages/?q="
+websearch[arch aur]="https://aur.archlinux.org/packages?O=0&K="
 websearch[archwiki]="https://wiki.archlinux.org/index.php?search="
 # Development
 websearch[stackoverflow]="https://stackoverflow.com/search?q="
+# Entertaiment
+websearch[cinemark]="https://www.cinemarkhoyts.com.ar/pelicula/"
 
 # dmenu prints the options in insensitive mode, 20 options and prompt it something.
 dmenu="dmenu -i -l 20 -p"
