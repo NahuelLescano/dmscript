@@ -1,0 +1,34 @@
+#! /usr/bin/env bash
+
+dmenu="dmenu -i -l 20 -p"
+
+term="alacritty -e"
+
+main() {
+    local options=( "Search manpages" "Random manpage" "Quit" )
+
+    choice=$(printf '%s\n' "${options[@]}" | ${dmenu} 'Manpages:' "$@") || exit 1
+
+    case "$choice" in
+        "Search manpages")
+            man -k . | awk '{$3="-"; print $0}' | \
+            ${dmenu} 'Search for:' | \
+            awk '{print $2, $1}' | tr -d '()' | xargs $term man
+        ;;
+
+        "Random manpage")
+            man -k . | cut -d ' ' -f1 | shuf -n 1 | \
+            ${dmenu} 'Random manpage:' | xargs $term man
+        ;;
+
+        "Quit")
+            echo "Program terminated." && exit 0
+        ;;
+
+        *)
+            exit 0
+        ;;
+    esac
+}
+
+main
