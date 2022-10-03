@@ -5,6 +5,7 @@ dmenu="dmenu -i -l 20 -p"
 
 # Declare an array of options.
 declare -a options=(
+"Log out"
 "Reboot"
 "Suspend"
 "Shutdown"
@@ -15,12 +16,22 @@ main() {
     choice=$(printf '%s\n' "${options[@]}" | ${dmenu} 'Menu:' "${@}")
 
     case $choice in
+        'Log out')
+            if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}") == Yes" ]]; then
+                kill awesome
+
+            else
+                notify-send "User chose not to log out." && exit 0
+
+            fi
+        ;;
+
         'Reboot')
             if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
                 systemctl reboot
 
             else
-                notify_send "User chose not to reboot." && exit 0
+                notify-send "User chose not to reboot." && exit 0
 
             fi
         ;;
@@ -30,7 +41,7 @@ main() {
                 systemctl suspend
 
             else
-                notify_send "User chose not to suspend." && exit 0
+                notify-send "User chose not to suspend." && exit 0
 
             fi
         ;;
@@ -40,7 +51,7 @@ main() {
                 systemctl poweroff
 
             else
-                notify_send "User chose not to shutdown." && exit 0
+                notify-send "User chose not to shutdown." && exit 0
 
             fi
         ;;
