@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-dmenu="dmenu -i -l 20 -p"
+dmenu="dmenu -i -l 10 -g 10 -p"
 
 term="alacritty -e"
 
@@ -18,7 +18,7 @@ main() {
 
         "Random manpage")
             man -k . | cut -d ' ' -f1 | shuf -n 1 | \
-            ${dmenu} 'Random manpage:' | xargs $term man
+            ${dmenu} 'Random manpage' | xargs $term man
         ;;
 
         "Quit")

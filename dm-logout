@@ -5,11 +5,11 @@ dmenu="dmenu -i -l 20 -p"
 
 # Declare an array of options.
 declare -a options=(
-"Log out"
-"Reboot"
-"Suspend"
-"Shutdown"
-"Quit"
+"Log out"
+"Reboot"
+"Suspend"
+"Shutdown"
+"Quit"
 )
 
 main() {
@@ -18,7 +18,7 @@ main() {
     case $choice in
         'Log out')
             if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}") == Yes" ]]; then
-                kill awesome
+                killall awesome
 
             else
                 notify-send "User chose not to log out." && exit 0

@@ -10,7 +10,7 @@ main() {
     #Find all the pdf in the home user.
     files="$(find "$HOME" -maxdepth 4 -iname "*.pdf")"
     choice=$(printf '%s\n' "${files[@]}" | \
-           ${dmenu} "File: " "$@") || exit 1
+           ${dmenu} "File:" "$@") || exit 1
 
     if [ "$choice" ]; then
         "${pdf_viewer}" "$choice"
