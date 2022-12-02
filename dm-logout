@@ -5,11 +5,11 @@ dmenu="dmenu -i -l 20 -p"
 
 # Declare an array of options.
 declare -a options=(
-"Log out"
-"Reboot"
-"Suspend"
-"Shutdown"
-"Quit"
+"Log out"
+"Reboot"
+"Suspend"
+"Shutdown"
+"Quit"
 )
 
 main() {
@@ -26,22 +26,22 @@ main() {
             fi
         ;;
 
-        'Reboot')
-            if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
-                systemctl reboot
-
-            else
-                notify-send "User chose not to reboot." && exit 0
-
-            fi
-        ;;
-
         'Suspend')
             if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
                 systemctl suspend
 
             else
                 notify-send "User chose not to suspend." && exit 0
+
+            fi
+        ;;
+
+        'Reboot')
+            if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
+                systemctl reboot
+
+            else
+                notify-send "User chose not to reboot." && exit 0
 
             fi
         ;;
