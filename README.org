@@ -1,0 +1,13 @@
+#+title: Readme
+* My personal dmscripts.
+Those are some useful dmenu scripts that I use:
+ - *dm-radio:* choose between online radio stations with dmenu.
+ - *dm-wiki:* search an offline article copy from the arch wiki.
+ - *dm-confedit:* choose from a list a configuration file to work with.
+ - *dm-websearch:* search from various search engines.
+ - *dm-bookman:* search from [[https://www.qutebrowser.org/][qutebrowser]] bookmarks, quickmarks and history url.
+ - *dm-document:* search from pdfs files and opens them from a pdf viewer (I use [[https://en.wikipedia.org/wiki/Zathura_(document_viewer)][zathura]]).
+ - *dm-kill:* search from a process to kill.
+ - *dm-logout:* shutdown, reboot, log out or suspend the system.
+ - *dm-man:* search for a man page or choose a random one to read.
+ I was inspired by [[https://distro.tube/][DistroTube]].
