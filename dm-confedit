@@ -8,16 +8,17 @@ confedit[awesome theme]="$HOME/.config/awesome/theme.lua"
 confedit[bash]="$HOME/.bashrc"
 confedit[fish]="$HOME/.config/fish/config.fish"
 confedit[neovim]="$HOME/.config/nvim/init.lua"
-confedit[emacs init]="$HOME/.doom.d/init.el"
-confedit[emacs config]="$HOME/.doom.d/config.el"
-confedit[emacs packages]="$HOME/.doom.d/packages.el"
+confedit[doom emacs init]="$HOME/.doom.d/init.el"
+confedit[doom emacs config]="$HOME/.doom.d/config.el"
+confedit[doom emacs packages]="$HOME/.doom.d/packages.el"
 confedit[qutebrowser bookmarks]="$HOME/.config/qutebrowser/urls"
 confedit[qutebrowser quickmarks]="$HOME/.config/qutebrowser/quickmarks"
 confedit[qutebrowser config.py]="$HOME/.config/qutebrowser/config.py"
+confedit_list[xresources]="$HOME/.Xresources"
 confedit[vifm]="$HOME/.config/vifm/vifmrc"
 
 # dmenu with insensitive mode, print 20 lines and prompt something
-dmenu="dmenu -i -l 20 -p"
+dmenu="dmenu -i -l 10 -g 3 -p"
 
 # The actual editor.
 #editor="nvim"
