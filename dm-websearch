@@ -31,6 +31,10 @@ websearch[cinemark]="https://www.cinemarkhoyts.com.ar/pelicula/"
 # dmenu prints the options in insensitive mode, 20 options and prompt it something.
 dmenu="dmenu -i -l 10 -g 3 -p"
 
+# Web browser
+#webBrowser="qutebrowser"
+webBrowser="brave"
+
 main() {
     engine=$(printf '%s\n' "${!websearch[@]}" | sort | ${dmenu} 'Choose search engine:' "$@") || exit 1
 
@@ -38,12 +42,13 @@ main() {
     url="${websearch["${engine}"]}"
 
     # Searching the chosen engine.
-    query=$(echo "$engine" | dmenu -i -p 'Enter the query:')
+    query=$(printf '%s' "$engine" | ${dmenu} 'Enter search query:')
+
 
     query="$(echo -n "${query}" | jq -s -R -r @uri)"
 
     # Display search results in web browser.
-    brave "${url}${query}"
+    ${webBrowser} "${url}${query}"
 }
 
 main
