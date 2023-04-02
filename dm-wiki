@@ -11,7 +11,7 @@ browser="qutebrowser"
 
 # dmenu prints the docs in insensitive mode, 20 options
 # and prompt it something
-dmenu="dmenu -i -l 20 -p"
+dmenu="dmenu -i -l 10 -g 3 -p"
 
 main() {
     # Take every single docs in the array and pipe it in dmenu.
