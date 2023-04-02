@@ -14,6 +14,7 @@ Those are some useful dmenu scripts that I use:
  - *dm-logout:* shutdown, reboot, log out or suspend the system.
  - *dm-man:* search for a man page or choose a random one to read.
  - *dm-maim:* take a screenshoot using maim.
+ - *dm-youtube:* view youtube suscription videos using bash scripting.
 
 * Insipiration
  I was inspired by [[https://distro.tube/][DistroTube]].
