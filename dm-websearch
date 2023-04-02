@@ -32,8 +32,8 @@ websearch[cinemark]="https://www.cinemarkhoyts.com.ar/pelicula/"
 dmenu="dmenu -i -l 10 -g 3 -p"
 
 # Web browser
-#webBrowser="qutebrowser"
-webBrowser="brave"
+#browser="qutebrowser"
+browser="brave"
 
 main() {
     engine=$(printf '%s\n' "${!websearch[@]}" | sort | ${dmenu} 'Choose search engine:' "$@") || exit 1
@@ -48,7 +48,7 @@ main() {
     query="$(echo -n "${query}" | jq -s -R -r @uri)"
 
     # Display search results in web browser.
-    ${webBrowser} "${url}${query}"
+    ${browser} "${url}${query}"
 }
 
 main
