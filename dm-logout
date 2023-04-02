@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # dmenu prints the options in insensitive mode, 20 options and prompt it something.
-dmenu="dmenu -i -l 20 -p"
+dmenu="dmenu -i -l 10 -p"
 
 # Declare an array of options.
 declare -a options=(

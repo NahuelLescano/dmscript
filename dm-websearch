@@ -29,7 +29,7 @@ websearch[stackoverflow]="https://stackoverflow.com/search?q="
 websearch[cinemark]="https://www.cinemarkhoyts.com.ar/pelicula/"
 
 # dmenu prints the options in insensitive mode, 20 options and prompt it something.
-dmenu="dmenu -i -l 20 -p"
+dmenu="dmenu -i -l 10 -g 3 -p"
 
 main() {
     engine=$(printf '%s\n' "${!websearch[@]}" | sort | ${dmenu} 'Choose search engine:' "$@") || exit 1
