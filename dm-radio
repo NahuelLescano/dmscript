@@ -9,9 +9,12 @@ radio_stations[Classical Radio]="https://zeno.fm/radio/classical-radio/"
 radio_stations[Classical Relaxation]="https://zeno.fm/radio/radio-christmas-non-stop-classical/"
 radio_stations[Classic Rock]="https://zeno.fm/radio/classic-rockdnb2sav8qs8uv/"
 radio_stations[PopMusic]="https://zeno.fm/radio/popmusic74vyurvmug0uv/"
+radio_stations[Urban]="https://urban985.com/"
+radio_stations[Aspen]="https://tunein.com/radio/Aspen-1023-(Buenos-Aires)-s25905/"
+radio_stations[One]="https://www.radioone1037.fm/"
 
 # dmenu prints the options in insensitive mode, 20 options and prompt it something.
-dmenu="dmenu -i -l 20 -p"
+dmenu="dmenu -i -l 10 -g 3 -p"
 
 menu() {
     printf '%s\n' "Quit"
