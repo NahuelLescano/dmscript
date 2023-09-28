@@ -1,27 +1,21 @@
 #!/usr/bin/env bash
 
-# Directory where the docs are.
+# You'll need arch-wiki-docs installed to work
 wikiDir="/usr/share/doc/arch-wiki/html/en/"
 
-# Create an array with all the docs to pipe it in dmenu.
 wikiDocs="$(find ${wikiDir} -iname "*.html")"
 
-# Default browser to see the wiki docs.
 browser="qutebrowser"
 
-# dmenu prints the docs in insensitive mode, 20 options
-# and prompt it something
 dmenu="dmenu -i -l 10 -g 3 -p"
 
 main() {
-    # Take every single docs in the array and pipe it in dmenu.
     choice=$(printf '%s\n' "${wikiDocs[@]}" | \
         cut -d '/' -f8- | \
         sed -e 's/_/ /g' -e 's/.html//g' | \
         sort -g | \
         ${dmenu} 'Arch wiki docs:') || exit 1
 
-    # If I make a choice, then it runs it in brave. Or just exit the program.
     if [ "${choice}" ]; then
         article=$(printf '%s\n' "${wikiDir}${choice}.html" | sed 's/ /_/g')
         "$browser" "$article"
@@ -31,5 +25,4 @@ main() {
     fi
 }
 
-# Run the main function.
 main

@@ -1,15 +1,13 @@
 #! /usr/bin/env bash
 
-# dmenu prints the options in insensitive mode, 20 options and prompt it something.
 dmenu="dmenu -i -l 10 -p"
 
-# Declare an array of options.
 declare -a options=(
-"Log out"
-"Reboot"
-"Suspend"
-"Shutdown"
 "Quit"
+"Log out"
+"Suspend"
+"Reboot"
+"Shutdown"
 )
 
 main() {
@@ -18,7 +16,9 @@ main() {
     case $choice in
         'Log out')
             if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}") == Yes" ]]; then
-                killall awesome
+                notify-send "Work in process." && exit 0
+                ## TODO: Make this line to work with every desktop.
+                # killall awesome
 
             else
                 notify-send "User chose not to log out." && exit 0
@@ -56,8 +56,6 @@ main() {
             fi
         ;;
 
-        # It is a common practice to use the wildcard asterisk symbol (*) as a final
-        # pattern to define the default case. This pattern will always match.
         *)
             exit 1
         ;;

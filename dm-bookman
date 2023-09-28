@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
 dmenu="dmenu -i -l 20 -p"
 
@@ -26,7 +26,7 @@ main() {
         qutebrowser "$url"
 
     else
-        echo "Program terminated." && exit 0
+        notify-send "Program terminated" echo "Program terminated" && exit 0
 
     fi
 }

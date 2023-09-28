@@ -1,6 +1,5 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
-# dmenu prints the options in insensitive mode, 20 options and prompt it something.
 dmenu="dmenu -i -l 10 -g 3 -p"
 
 get_timestamp() {
@@ -19,7 +18,6 @@ main() {
   local _maim_args=""
   local _file_type=""
 
-  # Directory for screenshots
   maim_dir="${HOME}/Screenshots"
   maim_file_prefix="maim"
 
@@ -29,10 +27,8 @@ main() {
   "Selected region"
   )
 
-  # Get monitors and their settings for maim
   _displays=$(xrandr --listactivemonitors | awk '/+/ {print $4, $3}' | awk -F'[x/+* ]' '{print $1,$2"x"$4"+"$6"+"$7}')
 
-  # Add monitor data
   IFS=$'\n'
   declare -A _display_mode
   for i in ${_displays}; do

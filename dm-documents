@@ -1,16 +1,15 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
-# dmenu prints the options in insensitive mode, 20 options and prompt it something.
 dmenu="dmenu -i -l 10 -g 3 -p"
 
-# pdf viewer
 pdf_viewer="zathura"
 
 main() {
-    #Find all the pdf in the home user.
     files="$(find "$HOME" -maxdepth 5 -iname "*.pdf")"
     choice=$(printf '%s\n' "${files[@]}" | \
            ${dmenu} "File:" "$@") || exit 1
+
+    notify-send $choice
 
     if [ "$choice" ]; then
         "${pdf_viewer}" "$choice"
