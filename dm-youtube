@@ -16,6 +16,13 @@ youtube_channels[TechLead]="https://www.youtube.com/@TechLead/featured"
 youtube_channels[Chris Titus Tech]="https://www.youtube.com/@ChrisTitusTech/featured"
 youtube_channels[Antonio Sarosi]="https://www.youtube.com/@AntonioSarosi/featured"
 youtube_channels[Nate Gentile]="https://www.youtube.com/@NateGentile7/featured"
+youtube_channels[midulive]="https://www.youtube.com/@midulive/featured"
+youtube_channels[midudev]="https://www.youtube.com/@midudev/featured"
+youtube_channels[tsodingdaily]="https://www.youtube.com/@TsodingDaily/featured"
+youtube_channels[bilinks]="https://www.youtube.com/@bilinkis/featured"
+youtube_channels[CodelyTV]="https://www.youtube.com/@CodelyTV/featured"
+youtube_channels[HolaMundoDev]="https://www.youtube.com/@HolaMundoDev/featured"
+youtube_channels[b001]="https://www.youtube.com/@b001/featured"
 
 xmlgetnext () {
   local IFS='>'
