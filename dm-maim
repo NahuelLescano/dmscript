@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-dmenu="dmenu -i -l 10 -g 3 -p"
+dmenu="rofi -dmenu -p"
 
 get_timestamp() {
     date '+%Y%m%d_%H%M%S'
@@ -9,7 +9,6 @@ get_timestamp() {
 cp2cb_maim() {
   case "$XDG_SESSION_TYPE" in
     'x11') xclip -selection clipboard -t image/png;;
-    'wayland') wl-copy -t image/png;;
     *) err "Unknown display server";;
   esac
 }

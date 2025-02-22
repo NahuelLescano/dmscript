@@ -1,25 +1,15 @@
 #!/usr/bin/env bash
 
 declare -A confedit
-confedit[alacritty]="$HOME/.config/alacritty/alacritty.yml"
+confedit[alacritty]="$HOME/.config/alacritty/alacritty.toml"
 confedit[awesome]="$HOME/.config/awesome/rc.lua"
 confedit[awesome theme]="$HOME/.config/awesome/theme.lua"
 confedit[bash]="$HOME/.bashrc"
 confedit[fish]="$HOME/.config/fish/config.fish"
-confedit[nvim plugins]="$HOME/.config/nvim/lua/Nahuel/packer.lua"
-confedit[nvim remap]="$HOME/.config/nvim/lua/Nahuel/remap.lua"
-confedit[nvim set]="$HOME/.config/nvim/lua/Nahuel/set.lua"
-confedit[nvim plugins configs]="$HOME/.config/nvim/after/plugin/"
-confedit[qutebrowser bookmarks]="$HOME/.config/qutebrowser/urls"
-confedit[qutebrowser quickmarks]="$HOME/.config/qutebrowser/quickmarks"
-confedit[qutebrowser config.py]="$HOME/.config/qutebrowser/config.py"
-confedit[xresources]="$HOME/.Xresources"
-confedit[vifm]="$HOME/.config/vifm/vifmrc"
-confedit[qtile]="$HOME/.config/qtile/config.py"
-confedit[qtile autostart]="$HOME/.config/qtile/autostart.sh"
 confedit[startship prompt]="$HOME/.config/starship.toml"
+confedit[tmux]="$HOME/.config/tmux.conf"
 
-dmenu="dmenu -i -l 10 -g 3 -p"
+dmenu="rofi -dmenu -p"
 
 editor="nvim"
 

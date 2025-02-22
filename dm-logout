@@ -1,11 +1,9 @@
 #! /usr/bin/env bash
 
-dmenu="dmenu -i -l 10 -p"
+dmenu="rofi -dmenu -p"
 
 declare -a options=(
 "Quit"
-"Log out"
-"Suspend"
 "Reboot"
 "Shutdown"
 )
@@ -14,34 +12,9 @@ main() {
     choice=$(printf '%s\n' "${options[@]}" | ${dmenu} 'Menu:' "${@}")
 
     case $choice in
-        'Log out')
-            if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}") == Yes" ]]; then
-                notify-send "Work in process." && exit 0
-                ## TODO: Make this line to work with every desktop.
-                # killall awesome
-
-            else
-                notify-send "User chose not to log out." && exit 0
-
-            fi
-        ;;
-
-        'Suspend')
-            if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
-                systemctl suspend
-
-            else
-                notify-send "User chose not to suspend." && exit 0
-
-            fi
-        ;;
-
         'Reboot')
             if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
                 systemctl reboot
-
-            else
-                notify-send "User chose not to reboot." && exit 0
 
             fi
         ;;
@@ -49,9 +22,6 @@ main() {
         'Shutdown')
             if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
                 systemctl poweroff
-
-            else
-                notify-send "User chose not to shutdown." && exit 0
 
             fi
         ;;
