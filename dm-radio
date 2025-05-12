@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-# Declare an array with the options.
 declare -A radio_stations
-radio_stations[80s Rewind]="https://zeno.fm/radio/80s-rewind/"
 radio_stations[90s Rock]="https://zeno.fm/radio/90s-rock/"
 radio_stations[The 2000s]="https://zeno.fm/radio/the-2000s/"
 radio_stations[Classical Radio]="https://zeno.fm/radio/classical-radio/"
@@ -13,15 +11,14 @@ radio_stations[Urban]="https://urban985.com/"
 radio_stations[Aspen]="https://tunein.com/radio/Aspen-1023-(Buenos-Aires)-s25905/"
 radio_stations[One]="https://www.radioone1037.fm/"
 
-# dmenu prints the options in insensitive mode, 20 options and prompt it something.
-dmenu="dmenu -i -l 10 -g 3 -p"
+dmenu="rofi -dmenu -i -p"
+RADIO_VOLUME="70"
 
 menu() {
     printf '%s\n' "Quit"
     printf '%s\n' "${!radio_stations[@]}" | sort
 }
 
-# Functions for sending notification messages
 start_radio() {
   notify-send "Starting dm-radio" "Playing station: $1. 🎶"
 }
@@ -30,7 +27,6 @@ end_radio() {
   notify-send "Stopping dm-radio" "You have quit dm-radio. 🎶"
 }
 
-# Keep the option and the if I chose a valid option, then execute mpv. Or just quit.
 main() {
     choice=$(menu | ${dmenu} 'Choose radio station:' "$@") || exit 1
 
@@ -44,11 +40,10 @@ main() {
     *)
         pkill -f http || echo "mpv not running."
         start_radio "$choice" ;
-        mpv "${radio_stations["${choice}"]}"
+        mpv "${radio_stations["${choice}"]}" --volume="${RADIO_VOLUME:-100}"
         return
         ;;
     esac
 }
 
-# Without this, it's never going to do anything.
 main

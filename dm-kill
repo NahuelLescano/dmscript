@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-dmenu="rofi -dmenu -p"
+dmenu="rofi -dmenu -i -l 10 -p"
 
 main() {
     selected="$(ps --user  "$USER" -F | \

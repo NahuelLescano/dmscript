@@ -29,25 +29,20 @@ websearch[stackoverflow]="https://stackoverflow.com/search?q="
 websearch[cinemark]="https://www.cinemarkhoyts.com.ar/pelicula/"
 
 # dmenu prints the options in insensitive mode, 20 options and prompt it something.
-dmenu="dmenu -i -l 10 -g 3 -p"
+dmenu="rofi -dmenu -i -p"
 
 # Web browser
-#browser="qutebrowser"
 browser="brave"
 
 main() {
     engine=$(printf '%s\n' "${!websearch[@]}" | sort | ${dmenu} 'Choose search engine:' "$@") || exit 1
 
-    # Getting the URL of the search engine we chose.
     url="${websearch["${engine}"]}"
 
-    # Searching the chosen engine.
     query=$(printf '%s' "$engine" | ${dmenu} 'Enter search query:')
-
 
     query="$(echo -n "${query}" | jq -s -R -r @uri)"
 
-    # Display search results in web browser.
     ${browser} "${url}${query}"
 }
 

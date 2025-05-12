@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-dmenu="rofi -dmenu -p"
+dmenu="rofi -dmenu -i -p"
 
 declare -a options=(
 "Quit"
@@ -27,7 +27,7 @@ main() {
         ;;
 
         *)
-            exit 1
+            echo "User choose to close" && exit 1
         ;;
     esac
 }

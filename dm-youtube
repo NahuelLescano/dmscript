@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-dmenu="dmenu -i -l 20 -g 3 -p"
+dmenu="rofi -dmenu -i -p"
 browser="brave"
 
 declare -A youtube_channels
@@ -26,7 +26,6 @@ youtube_channels[b001]="https://www.youtube.com/@b001/featured"
 
 xmlgetnext () {
   local IFS='>'
-  # we need to mangle backslashes for this to work
   read -d '<' TAG VALUE
 }
 
@@ -58,23 +57,16 @@ main() {
   local _feed_url _channel _video
   local _channel_id _video_id _video_list
 
-  # Sorts the array and lets you select a channel with dmenu
-  # As this is loaded from other file it is technically not defined
   _channel=$(printf '%s\n' "${!youtube_channels[@]}" | sort | ${dmenu} 'Select Channel:' "$@")
 
-  # The way it's done here is most effective, it searchs for "=" then it takes
-  # everything before the = sign and leaves us with our variable used in the
-  # _feed_url variable
   _channel_id=$(curl -s -f -L "${youtube_channels[${_channel}]}" | grep -o "channel_id=.*" | sed 's/".*//g')
   _feed_url="https://www.youtube.com/feeds/videos.xml?channel_id=${_channel_id##*=}"
-  # parse rss
   _video_list=$(parse_rss "$(curl -s "${_feed_url}")" )
 
   _video=$(printf '%s\n' "${_video_list}" | sort -r | ${dmenu} 'Select Video' "$@")
   _video_id=$(echo "${_video}" | cut -d'|' -f2 | sed -e 's/^[ \t]*//')
 
   if [[ -n ${_video_id} ]]; then
-    # After the video is chosen, run it in your web browser
     ${browser} "https://www.youtube.com/watch?v=${_video_id}"
   fi
 }

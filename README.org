@@ -8,7 +8,6 @@ Those are some useful dmenu scripts that I use:
  - *dm-confedit:* choose from a list a configuration file to work with. I use /doom emacs/ but you can use
    whatever you want to use such as /nvim./
  - *dm-websearch:* search from various search engines. I use /brave/ but you can use other browser.
- - *dm-bookman:* search from [[https://www.qutebrowser.org/][qutebrowser]] bookmarks, quickmarks and history url.
  - *dm-document:* search from pdfs files and opens them from a pdf viewer (I use [[https://en.wikipedia.org/wiki/Zathura_(document_viewer)][zathura]]).
  - *dm-kill:* search from a process to kill.
  - *dm-logout:* shutdown, reboot, log out or suspend the system.

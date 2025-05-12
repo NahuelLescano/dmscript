@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-dmenu="dmenu -i -l 10 -g 3 -p"
+dmenu="rofi -dmenu -i -p"
 
-term="alacritty -e"
+term="kitty -e"
 
 main() {
     local options=( "Search manpages" "Random manpage" "Quit" )

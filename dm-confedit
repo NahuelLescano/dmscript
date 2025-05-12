@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 declare -A confedit
-confedit[alacritty]="$HOME/.config/alacritty/alacritty.toml"
-confedit[awesome]="$HOME/.config/awesome/rc.lua"
-confedit[awesome theme]="$HOME/.config/awesome/theme.lua"
-confedit[bash]="$HOME/.bashrc"
-confedit[fish]="$HOME/.config/fish/config.fish"
-confedit[startship prompt]="$HOME/.config/starship.toml"
+confedit[kitty]="$HOME/.config/kitty/"
+confedit[fish]="$HOME/.config/fish/"
+confedit[hyprland]="$HOME/.config/hypr/"
+confedit[waybar]="$HOME/.config/waybar/"
+confedit[startship]="$HOME/.config/starship.toml"
 confedit[tmux]="$HOME/.config/tmux.conf"
+confedit[bash]="$HOME/.bashrc"
 
 dmenu="rofi -dmenu -p"
 
@@ -17,7 +17,7 @@ main() {
     declare -A clean_list
 
     for i in "${!confedit[@]}"; do
-        [[ -f ${confedit["${i}"]} ]] && clean_list["${i}"]=${confedit["${i}"]}
+        [[ -e ${confedit["${i}"]} ]] && clean_list["${i}"]=${confedit["${i}"]}
     done
 
     choice=$(printf '%s\n' "${!clean_list[@]}" | sort | ${dmenu} 'Edit config:' "$@") || exit 1

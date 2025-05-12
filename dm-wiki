@@ -2,12 +2,16 @@
 
 # You'll need arch-wiki-docs installed to work
 wikiDir="/usr/share/doc/arch-wiki/html/en/"
+if [ ! -d "$wikiDir" ]; then
+    echo "Error: asegúrate de tener instalado el paquete 'arch-wiki-docs' y que esté en esta ubicación." >&2
+    exit 1
+fi
 
 wikiDocs="$(find ${wikiDir} -iname "*.html")"
 
-browser="qutebrowser"
+browser="brave"
 
-dmenu="dmenu -i -l 10 -g 3 -p"
+dmenu="rofi -dmenu -i -p"
 
 main() {
     choice=$(printf '%s\n' "${wikiDocs[@]}" | \

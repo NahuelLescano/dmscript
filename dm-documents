@@ -1,32 +1,27 @@
 #!/usr/bin/env bash
 
-dmenu="dmenu -i -l 10 -g 3 -p"
+DMENU="rofi -dmenu -p"
 
-pdf_viewer="zathura"
+PDF_VIEWER="zathura"
 
 main() {
-    directories=(
-        "$HOME/Documentos/"
-        "$HOME/Descargas/"
-        "$HOME/Books/"
-    )
-    files="$(find "${directories[@]}" -maxdepth 5 -iname "*.pdf")"
-
-    if [[ -z "$files" ]]; then
-        echo "No PDF files found in specified directories."
-        exit 1
-    fi
-
-    choice=$(printf '%s\n' "${files[@]}" | \
-           ${dmenu} "File:" "$@") || exit 1
-
-    notify-send $choice
-
-    if [ -n "$choice" ]; then
-        "${pdf_viewer}" "$choice"
-
+   files="$(find "$HOME" -maxdepth 4 -iname "*.pdf")"
+    choice=$(printf '%s\n' "${files[@]}" \
+        | cut -d '/' -f4- \
+        | sed -e 's/Descargas/Dsg/g' \
+            -e 's/Books/Bks/g' \
+            -e 's/.pdf//g' \
+        | sort -g \
+        | ${DMENU} "File: ") || exit 1
+    if [ "$choice" ]; then
+        file=$(
+            printf '%s' "$choice" \
+                | sed -e 's/Dsg/Descargas/g' \
+                    -e 's/Bks/Books/g' \
+        )
+        "${PDF_VIEWER}" "$HOME/${file}.pdf"
     else
-        echo "Program terminated." && exit 0
+        echo "Program Terminated." && exit 0
     fi
 }
 
