@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Ensure directory exists
+mkdir -p $HOME/.local/bin
+
+# Just copy all script on there
+cp dm-* $HOME/.local/bin
