@@ -7,6 +7,7 @@ declare -A radio_stations
 radio_stations[Aspen]="https://tunein.com/radio/Aspen-1023-(Buenos-Aires)-s25905/"
 radio_stations[LaNacion]="https://masmusica.lanacion.com.ar/"
 radio_stations[La100]="https://tunein.com/radio/La-100-999-s6984/"
+radio_stations[Top-40]="https://tunein.com/radio/1FM-Top-40-s48967/"
 
 dmenu="rofi -dmenu -i -p"
 RADIO_VOLUME="70"
