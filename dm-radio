@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
+## no cualquier tipo de radio puede ser reproducida directamente por mpv
+## stream directo -> https://tunein.com/radio/home/
+
 declare -A radio_stations
 radio_stations[Aspen]="https://tunein.com/radio/Aspen-1023-(Buenos-Aires)-s25905/"
 radio_stations[LaNacion]="https://masmusica.lanacion.com.ar/"
+radio_stations[La100]="https://tunein.com/radio/La-100-999-s6984/"
 
 dmenu="rofi -dmenu -i -p"
 RADIO_VOLUME="70"
@@ -31,7 +35,7 @@ main() {
         ;;
 
     *)
-        pkill -f http || echo "mpv not running."
+        pkill -f http || echo "Starting mpv..."
         start_radio "$choice" ;
         mpv "${radio_stations["${choice}"]}" --volume="${RADIO_VOLUME:-100}"
         return
