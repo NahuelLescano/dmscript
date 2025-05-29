@@ -1,25 +1,63 @@
 #!/usr/bin/env bash
 
 DMENU="rofi -dmenu -p"
-
 PDF_VIEWER="zathura"
 
 main() {
-   files="$(find "$HOME" -maxdepth 4 -iname "*.pdf")"
-    choice=$(printf '%s\n' "${files[@]}" \
-        | cut -d '/' -f4- \
-        | sed -e 's/Descargas/Dsg/g' \
+    files=$(find "$HOME" -maxdepth 5 -iname "*.pdf")
+
+    # Abreviar y extraer solo el nombre del archivo
+    display_names=$(printf '%s\n' "${files[@]}" \
+        | sed -E \
+            -e 's/Descargas/Dsg/g' \
             -e 's/Books/Bks/g' \
-            -e 's/.pdf//g' \
-        | sort -g \
-        | ${DMENU} "File: ") || exit 1
+            -e 's/Notes/Nt/g' \
+            -e 's/(.*\/)?([^\/]*)\.pdf/\2/g' \
+        | awk '{
+            gsub("/", " ", $0);
+            if ($0 ~ /Sistemas-Digitales/) {
+                gsub(/Sistemas-Digitales/, "SD", $0)
+            }
+            if ($0 ~ /Analisis-Matematico/) {
+                gsub(/Analisis-Matematico/, "AM", $0)
+            }
+            if ($0 ~ /Computacion/) {
+                gsub(/Computacion/, "CO", $0)
+            }
+            if ($0 ~ /Intro/) {
+                gsub(/Intro/, "IN", $0)
+            }
+            if ($0 ~ /Sistemas-y-Metodos/) {
+                gsub(/Sistemas-y-Metodos/, "SM", $0)
+            }
+            print
+        }' \
+        | sort -g)
+
+    choice=$(printf '%s\n' "${display_names[@]}" | ${DMENU} "File: ") || exit 1
+
     if [ "$choice" ]; then
-        file=$(
-            printf '%s' "$choice" \
-                | sed -e 's/Dsg/Descargas/g' \
-                    -e 's/Bks/Books/g' \
+        # Encontrar el archivo original basado en la elección abreviada
+        original_file=$(
+            printf '%s\n' "${files[@]}" \
+                | grep "$(echo "$choice" \
+                    | sed -E \
+                        -e 's/Dsg/Descargas/g' \
+                        -e 's/Bks/Books/g' \
+                        -e 's/Nt/Notes/g' \
+                        -e 's/SD/Sistemas-Digitales/g' \
+                        -e 's/AM/Analisis-Matematico/g' \
+                        -e 's/CO/Computacion/g' \
+                        -e 's/IN/Intro/g' \
+                        -e 's/SM/Sistemas-y-Metodos/g' \
+            )"\
         )
-        "${PDF_VIEWER}" "$HOME/${file}.pdf"
+
+        if [ -n "$original_file" ]; then
+            "${PDF_VIEWER}" "${original_file}"
+        else
+            echo "Archivo no encontrado."
+        fi
     else
         echo "Program Terminated." && exit 0
     fi
