@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-DMENU="rofi -dmenu -p"
+DMENU="rofi -dmenu -i -p"
 PDF_VIEWER="zathura"
 
 main() {
-    files=$(find "$HOME" -maxdepth 5 -iname "*.pdf")
+    files=$(find "$HOME" -maxdepth 4 -iname "*.pdf")
 
     # Abreviar y extraer solo el nombre del archivo
     display_names=$(printf '%s\n' "${files[@]}" \
