@@ -2,10 +2,10 @@
 
 dmenu="rofi -dmenu -i -p"
 
-declare -a options=(
-"Quit"
-"Reboot"
-"Shutdown"
+options=(
+    'Quit'
+    'Reboot'
+    'Shutdown'
 )
 
 main() {
@@ -15,14 +15,16 @@ main() {
         'Reboot')
             if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
                 systemctl reboot
-
+            else
+                echo "Reboot cancelled." && exit 1
             fi
         ;;
 
         'Shutdown')
             if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
                 systemctl poweroff
-
+            else
+                echo "Shutdown cancelled." && exit 1
             fi
         ;;
 
