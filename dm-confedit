@@ -2,14 +2,15 @@
 
 declare -A confedit
 confedit[kitty]="$HOME/.config/kitty/"
+confedit[ghostty]="$HOME/.config/ghostty/config"
+confedit[bash]="$HOME/.bashrc"
 confedit[fish]="$HOME/.config/fish/"
 confedit[hyprland]="$HOME/.config/hypr/"
 confedit[waybar]="$HOME/.config/waybar/"
 confedit[startship]="$HOME/.config/starship.toml"
 confedit[tmux]="$HOME/.config/tmux.conf"
-confedit[bash]="$HOME/.bashrc"
 
-dmenu="rofi -dmenu -p"
+dmenu="rofi -dmenu -i -p"
 
 editor="nvim"
 
