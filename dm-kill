@@ -1,22 +1,35 @@
-#! /usr/bin/env bash
-
-dmenu="rofi -dmenu -i -l 10 -p"
+#!/usr/bin/env bash
 
 main() {
-    selected="$(ps --user  "$USER" -F | \
-              ${dmenu} 'Search a process to kill ' "$@" | \
-              awk '{print $2" "$11}')";
+    # Get processes for current user, skip header line
+    selected="$(ps --user "$USER" -o pid,comm,args --no-headers | \
+        fzf --prompt='Search a process to kill > ' \
+            --header='PID COMMAND ARGS' \
+            --preview='echo {}' \
+            --preview-window=down:3:wrap)"
 
     if [[ -n $selected ]]; then
-        answer="$(echo -e "No\nYes" | ${dmenu} "Kill $selected?" "$@")"
+        # Extract PID (first column)
+        pid="$(echo "$selected" | awk '{print $1}')"
+        process_name="$(echo "$selected" | awk '{print $2}')"
+        
+        answer="$(echo -e "No\nYes" | fzf --prompt="Kill process $process_name (PID: $pid)? > ")"
 
         if [[ $answer == "Yes" ]]; then
-            kill -9 "${selected%% *}"
-            echo "Process $selected has been killed." && exit 0
-
+            if kill -TERM "$pid" 2>/dev/null; then
+                echo "Process $process_name (PID: $pid) has been terminated."
+                exit 0
+            else
+                echo "Failed to kill process $process_name (PID: $pid)."
+                exit 1
+            fi
         else
-            echo "Program terminated." && exit 1
+            echo "Program terminated."
+            exit 1
         fi
+    else
+        echo "No process selected."
+        exit 1
     fi
 }
 
