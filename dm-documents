@@ -56,7 +56,7 @@ main() {
         if [ -n "$original_file" ]; then
             "${PDF_VIEWER}" "${original_file}"
         else
-            echo "Archivo no encontrado."
+            echo "File not found." && exit 1
         fi
     else
         echo "Program Terminated." && exit 0
