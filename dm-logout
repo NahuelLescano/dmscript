@@ -1,27 +1,27 @@
 #! /usr/bin/env bash
 
-dmenu="rofi -dmenu -i -p"
+DMENU="rofi -show-icons -dmenu -i -p"
 
 options=(
-    'Quit'
-    'Reboot'
-    'Shutdown'
+    '🚪 Quit'
+    '🔄 Reboot'
+    '🔌 Shutdown'
 )
 
 main() {
-    choice=$(printf '%s\n' "${options[@]}" | ${dmenu} 'Menu:' "${@}")
+    choice=$(printf '%s\n' "${options[@]}" | ${DMENU} 'Menu:' "${@}")
 
     case $choice in
-        'Reboot')
-            if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
+        '🔄 Reboot')
+            if [[ "$(echo -e "No\nYes" | ${DMENU} "${choice}?" "${@}")" == "Yes" ]]; then
                 systemctl reboot
             else
                 echo "Reboot cancelled." && exit 1
             fi
         ;;
 
-        'Shutdown')
-            if [[ "$(echo -e "No\nYes" | ${dmenu} "${choice}?" "${@}")" == "Yes" ]]; then
+        '🔌 Shutdown')
+            if [[ "$(echo -e "No\nYes" | ${DMENU} "${choice}?" "${@}")" == "Yes" ]]; then
                 systemctl poweroff
             else
                 echo "Shutdown cancelled." && exit 1

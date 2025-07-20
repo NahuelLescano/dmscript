@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
-DMENU="rofi -dmenu -i -p"
+DMENU="rofi -show-icons -dmenu -i -p"
 PDF_VIEWER="zathura"
 
 main() {
     files=$(find "$HOME" -maxdepth 4 -iname "*.pdf")
 
-    # Abreviar y extraer solo el nombre del archivo
+    # Abreviar y extraer solo el nombre del archivo con iconos
     display_names=$(printf '%s\n' "${files[@]}" \
         | sed -E \
             -e 's/Descargas/Dsg/g' \
             -e 's/Books/Bks/g' \
             -e 's/Notes/Nt/g' \
-            -e 's/(.*\/)?([^\/]*)\.pdf/\2/g' \
+            -e 's/(.*\/)?([^\/]*)\.pdf/📄 \2/g' \
         | awk '{
             gsub("/", " ", $0);
             if ($0 ~ /Sistemas-Digitales/) {
@@ -42,6 +42,7 @@ main() {
             printf '%s\n' "${files[@]}" \
                 | grep "$(echo "$choice" \
                     | sed -E \
+                        -e 's/^📄 //g' \
                         -e 's/Dsg/Descargas/g' \
                         -e 's/Bks/Books/g' \
                         -e 's/Nt/Notes/g' \
