@@ -26,6 +26,7 @@ youtube_channels[b001]="https://www.youtube.com/@b001/videos"
 youtube_channels[theo]="https://www.youtube.com/@t3dotgg/videos"
 youtube_channels[TsodingDaily]="https://www.youtube.com/@TsodingDaily/videos"
 youtube_channels[Tsoding]="https://www.youtube.com/@Tsoding/videos"
+youtube_channels[Low Level]="https://www.youtube.com/@LowLevelTV/videos"
 
 xmlgetnext () {
   local IFS='>'
