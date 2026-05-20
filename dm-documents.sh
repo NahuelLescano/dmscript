@@ -8,7 +8,6 @@ main() {
     choice=$(printf '%s\n' "${files[@]}" \
         | cut -d '/' -f4- \
         | sed -e 's/Documents/Dcs/g' \
-            -e 's/Downloads/Dwn/g' \
             -e 's/Pictures/Pic/g' \
             -e 's/Images/Img/g' \
             -e 's/.pdf//g' \
@@ -18,7 +17,6 @@ main() {
         file=$(
             printf '%s' "$choice" \
                 | sed -e 's/Dcs/Documents/g' \
-                    -e 's/Dwn/Downloads/g' \
                     -e 's/Pic/Pictures/g' \
                     -e 's/Img/Images/g'
         )
